@@ -16,5 +16,6 @@ export type Props = Record<string, string> & {
  */
 export default function attributesToProps(
   attributes: Attributes,
-  nodeName?: string
+  nodeName?: string,
+  preserveCustomAttributes?: boolean
 ): Props;

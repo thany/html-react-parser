@@ -1,11 +1,11 @@
-const React = require('react');
-const htmlToDOM = require('html-dom-parser');
+import React from 'react';
+import * as Preact from 'preact';
+import htmlToDOM from 'html-dom-parser';
 
-const domToReact = require('../lib/dom-to-react');
-const utilities = require('../lib/utilities');
+import domToReact from '../lib/dom-to-react.js';
 
-const { render } = require('./helpers');
-const { html, svg } = require('./data');
+import { render } from './helpers/index.js';
+import { html, svg } from './data/index.js';
 
 describe('domToReact', () => {
   it.each([
@@ -88,7 +88,7 @@ describe('domToReact', () => {
   });
 
   it('does not throw an error for void elements', () => {
-    const reactElements = domToReact(htmlToDOM(html.void));
+    const reactElements = domToReact(htmlToDOM(html.void_));
     expect(() => {
       render(React.createElement('div', {}, reactElements));
     }).not.toThrow();
@@ -145,8 +145,6 @@ describe('domToReact', () => {
 });
 
 describe('domToReact with library option', () => {
-  const Preact = require('preact');
-
   it('converts with React by default', () => {
     const reactElement = domToReact(htmlToDOM(html.single));
     expect(React.isValidElement(reactElement)).toBe(true);
@@ -263,18 +261,12 @@ describe('domToReact', () => {
   });
 
   describe('when React <16', () => {
-    const { PRESERVE_CUSTOM_ATTRIBUTES } = utilities;
-
-    beforeAll(() => {
-      utilities.PRESERVE_CUSTOM_ATTRIBUTES = false;
-    });
-
-    afterAll(() => {
-      utilities.PRESERVE_CUSTOM_ATTRIBUTES = PRESERVE_CUSTOM_ATTRIBUTES;
-    });
-
     it('removes unknown attributes', () => {
-      const reactElement = domToReact(htmlToDOM(html.customElement));
+      const reactElement = domToReact(
+        htmlToDOM(html.customElement),
+        undefined,
+        false
+      );
       expect(reactElement).toMatchInlineSnapshot(`
         <custom-element
           className="myClass"

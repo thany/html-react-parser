@@ -1,8 +1,13 @@
-const React = require('react');
-const domhandler = require('domhandler');
-const parse = require('..');
-const { html, svg } = require('./data');
-const { render } = require('./helpers');
+import React from 'react';
+import * as Preact from 'preact';
+import { Comment, Element, ProcessingInstruction, Text } from 'domhandler';
+import parse from '../index.js';
+import { html, svg } from './data/index.js';
+import { render } from './helpers/index.js';
+
+import domToReact from '../lib/dom-to-react';
+import htmlDomParser from 'html-dom-parser';
+import attributesToProps from '../lib/attributes-to-props';
 
 describe('module', () => {
   it('exports default', () => {
@@ -11,22 +16,23 @@ describe('module', () => {
   });
 
   it('exports domToReact', () => {
-    expect(parse.domToReact).toBe(require('../lib/dom-to-react'));
+    expect(parse.domToReact).toBe(domToReact);
     expect(parse.domToReact).toBeInstanceOf(Function);
   });
 
   it('exports htmlToDOM', () => {
-    expect(parse.htmlToDOM).toBe(require('html-dom-parser'));
+    expect(parse.htmlToDOM).toBe(htmlDomParser);
     expect(parse.htmlToDOM).toBeInstanceOf(Function);
     expect(parse.htmlToDOM.default).toBe(parse.htmlToDOM);
   });
 
   it('exports attributesToProps', () => {
-    expect(parse.attributesToProps).toBe(require('../lib/attributes-to-props'));
+    expect(parse.attributesToProps).toBe(attributesToProps);
     expect(parse.attributesToProps).toBeInstanceOf(Function);
   });
 
   describe('domhandler', () => {
+    const domhandler = { Comment, Element, ProcessingInstruction, Text };
     it.each(['Comment', 'Element', 'ProcessingInstruction', 'Text'])(
       'exports %s',
       name => {
@@ -389,8 +395,6 @@ describe('replace option', () => {
 });
 
 describe('library option', () => {
-  const Preact = require('preact');
-
   it('converts with Preact instead of React', () => {
     const parsedElement = parse(html.single, { library: Preact });
     const preactElement = Preact.createElement('p', {}, 'foo');

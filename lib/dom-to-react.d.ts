@@ -14,5 +14,6 @@ export { DOMNode, HTMLReactParserOptions };
  */
 export default function domToReact(
   nodes: DOMNode[],
-  options?: HTMLReactParserOptions
+  options?: HTMLReactParserOptions,
+  preserveCustomAttributes?: boolean
 ): string | JSX.Element | JSX.Element[];

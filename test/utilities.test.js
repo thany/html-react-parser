@@ -1,12 +1,12 @@
-const React = require('react');
-const {
+import React from 'react';
+import {
   PRESERVE_CUSTOM_ATTRIBUTES,
   invertObject,
   isCustomComponent,
   setStyleProp,
   elementsWithNoTextChildren,
   canTextBeChildOfNode
-} = require('../lib/utilities');
+} from '../lib/utilities.js';
 
 describe('invertObject', () => {
   it.each([undefined, null, '', 'test', 0, 1, true, false, () => {}])(

@@ -1,4 +1,4 @@
-const { renderToStaticMarkup } = require('react-dom/server');
+import { renderToStaticMarkup } from 'react-dom/server';
 
 /**
  * Renders a React element to static HTML markup.
@@ -6,4 +6,4 @@ const { renderToStaticMarkup } = require('react-dom/server');
  * @param {ReactElement} reactElement - React element.
  * @returns {string} - HTML markup.
  */
-exports.render = reactElement => renderToStaticMarkup(reactElement);
+export var render = reactElement => renderToStaticMarkup(reactElement);

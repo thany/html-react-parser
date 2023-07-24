@@ -1,4 +1,2 @@
-module.exports = {
-  html: require('./html'),
-  svg: require('./svg')
-};
+export * as html from './html.js';
+export * as svg from './svg.js';

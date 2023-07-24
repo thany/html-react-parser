@@ -4,12 +4,13 @@
   "description": "HTML to React parser.",
   "author": "Mark <mark@remarkablemark.org>",
   "main": "index.js",
-  "module": "index.mjs",
+  "type": "module",
   "exports": {
     ".": {
       "types": "./index.d.ts",
-      "import": "./index.mjs",
-      "require": "./index.js"
+      "import": "./index.js",
+      "require": "./index.js",
+      "default": "./index.js"
     },
     "./lib/*": {
       "types": "./lib/*.d.ts",
@@ -28,7 +29,7 @@
     "postpublish": "pinst --enable",
     "prepublishOnly": "pinst --disable && npm run lint && npm run lint:dts && npm run test:ci && npm run clean && npm run build",
     "size-limit": "size-limit",
-    "test": "jest --coverage --testPathIgnorePatterns test/integration/",
+    "test": "cross-env NODE_OPTIONS=--experimental-vm-modules jest --coverage --testPathIgnorePatterns test/integration/",
     "test:ci": "npm test -- --ci --colors",
     "test:module": "node --test test/module/",
     "test:integration": "npm run build && jest --env=jsdom test/integration/",
@@ -63,6 +64,7 @@
     "@types/react": "18.2.15",
     "@typescript-eslint/parser": "6.1.0",
     "benchmark": "2.1.4",
+    "cross-env": "7.0.3",
     "dtslint": "4.2.1",
     "eslint": "8.45.0",
     "eslint-plugin-prettier": "5.0.0",
@@ -87,8 +89,7 @@
   "files": [
     "/dist",
     "/lib",
-    "index.d.ts",
-    "index.mjs"
+    "index.d.ts"
   ],
   "collective": {
     "type": "opencollective",
